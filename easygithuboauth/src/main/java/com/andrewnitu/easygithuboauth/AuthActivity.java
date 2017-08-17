@@ -3,6 +3,7 @@ package com.andrewnitu.easygithuboauth;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -95,7 +97,16 @@ public class AuthActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
 
+                            String token = jsonObject.getString("access_token");
+
+                            storeTokenToSharedPreferences(token);
+                        }
+                        catch(JSONException e) {
+
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -119,6 +130,13 @@ public class AuthActivity extends AppCompatActivity {
         };
 
         requestQueue.add(stringRequest);
+    }
+
+    private void storeTokenToSharedPreferences(String token) {
+        SharedPreferences sp = getSharedPreferences("github-token", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("token", token);
+        editor.apply();
     }
 
     private boolean hasNecessaryExtras(Intent intent) {
