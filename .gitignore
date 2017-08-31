@@ -1,4 +1,8 @@
 ### Android ###
+
+# Gradle properties file (contains API keys)
+gradle.properties
+
 # Built application files
 *.apk
 *.ap_
