@@ -1,6 +1,6 @@
 # Easy Android GitHub OAuth #
 
-## About ##
+### About ###
 
 A simple client for adding OAuth authentication with the GitHub API to your Android app.
 
@@ -8,7 +8,7 @@ _MINIMUM API 19 (Ice Cream Sandwich)_
 
 ---
 
-## Usage ##
+### Usage ###
 
 Launch the GitHub authorization activity like so.
 
@@ -37,6 +37,6 @@ See example app for more details.
 
 ---
 
-## Contributing ## 
+### Contributing ###
 
 Feel free to submit pull requests.
