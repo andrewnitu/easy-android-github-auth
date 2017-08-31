@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Andrew Nitu on 8/3/2017.
@@ -83,14 +84,18 @@ public class AuthActivity extends AppCompatActivity {
 
                 String code = url.substring(url.lastIndexOf("?code=") + 1);
 
-                getToken((code.split("=")[1]).split("&")[1]);
+                getToken((code.split("=")[1]).split("&")[0]);
 
                 return false;
             }
         });
+
+        String oauthCodeUrl = GITHUB_OAUTH_CODE + "?client_id=" + id;
+
+        webView.loadUrl(oauthCodeUrl);
     }
 
-    private void getToken(String code) {
+    private void getToken(final String code) {
         requestQueue = Volley.newRequestQueue(this);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, GITHUB_OAUTH_TOKEN,
@@ -98,6 +103,7 @@ public class AuthActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
+                            Log.e("TEST", response);
                             JSONObject jsonObject = new JSONObject(response);
 
                             String token = jsonObject.getString("access_token");
@@ -105,27 +111,32 @@ public class AuthActivity extends AppCompatActivity {
                             storeTokenToSharedPreferences(token);
                         }
                         catch(JSONException e) {
-
+                            Log.e("dfasf", "something broke");
                         }
+
+                        finish();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        Log.e("dfasf", "something broke2");
                     }
                 }) {
             @Override
-            public byte[] getBody() throws AuthFailureError {
-                HashMap<String, String> params = new HashMap<>();
+            public Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
                 params.put("client_id", id);
                 params.put("client_secret", secret);
-                return new JSONObject(params).toString().getBytes();
+                params.put("code", code);
+                return params;
             }
 
             @Override
-            public String getBodyContentType() {
-                return "application/json";
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Accept", "application/json");
+                return headers;
             }
         };
 
