@@ -55,7 +55,6 @@ public class AuthActivity extends AppCompatActivity {
             getExtras(receivedIntent);
         }
         else {
-            Log.e(DEBUG_TAG, "An error occurred getting the intent extras");
             finish();
         }
 
@@ -111,7 +110,6 @@ public class AuthActivity extends AppCompatActivity {
                             storeTokenToSharedPreferences(token);
                         }
                         catch(JSONException e) {
-                            Log.e("dfasf", "something broke");
                         }
 
                         finish();
@@ -120,7 +118,6 @@ public class AuthActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("dfasf", "something broke2");
                     }
                 }) {
             @Override
