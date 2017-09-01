@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
 
 android {
     compileSdkVersion 25
@@ -29,3 +31,30 @@ dependencies {
     compile 'com.android.volley:volley:1.0.0'
     testCompile 'junit:junit:4.12'
 }
+
+ext {
+    bintrayRepo = 'EasyAndroidGitHubAuth'
+    bintrayName = 'GitHubAndroidOAuth'
+
+    publishedGroupId = 'com.andrewnitu'
+    libraryName = 'easygithuboauth'
+    artifact = 'easygithuboauth'
+
+    libraryDescription = 'A simple OAuth client for the GitHub API to easily authenticate users of your Android app.'
+
+    siteUrl = 'https://github.com/andrewnitu/EasyAndroidGitHubAuth'
+    gitUrl = 'https://github.com/andrewnitu/EasyAndroidGitHubAuth.git'
+
+    libraryVersion = '1.0.0'
+
+    developerId = 'anitu'
+    developerName = 'Andrew Nitu'
+    developerEmail = 'andrewnitu@email.com'
+
+    licenseName = 'Creative Commons'
+    licenseUrl = 'https://creativecommons.org/publicdomain/zero/1.0/'
+    allLicenses = ["CC0"]
+}
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
