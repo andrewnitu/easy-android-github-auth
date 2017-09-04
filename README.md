@@ -10,10 +10,12 @@ _MINIMUM API 19 (Ice Cream Sandwich)_
 
 ### Usage ###
 
-Make sure you specify Maven repository in project level build.gradle.
+Make sure you specify JCenter module repository in project level build.gradle.
 
-    maven {
-        url 'https://dl.bintray.com/anitu/EasyAndroidGitHubAuth'
+    allprojects {
+        repositories {
+            jcenter()
+        }
     }
 
 Define compilation dependency in app level build.gradle.
