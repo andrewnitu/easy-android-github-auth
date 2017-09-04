@@ -10,10 +10,17 @@ _MINIMUM API 19 (Ice Cream Sandwich)_
 
 ### Usage ###
 
-Launch the GitHub authorization activity like so.
+Make sure you specify Maven repository in project level build.gradle.
 
-clientId and secret can be obtained through GitHub developer settings.
-context is your current context, so likely 'this' for activities and 'getActivity()' for fragments.
+    maven {
+        url 'https://dl.bintray.com/anitu/EasyAndroidGitHubAuth'
+    }
+
+Define compilation dependency in app level build.gradle.
+
+    compile 'com.andrewnitu:easygithuboauth:1.0.0'
+
+Launch the GitHub authorization activity. clientId and secret can be obtained through GitHub developer settings. 
 
     GitHubAuthRunner gitHubAuthRunner = new GitHubAuthRunner(clientId, secret, context);
     gitHubAuthRunner.start();
